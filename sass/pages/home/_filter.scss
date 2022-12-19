@@ -1,7 +1,13 @@
-.filter {
+.search-recipe {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    flex-direction: column;
+
+    label {
+        display: none;
+    }
 
     .searchbar {
         width: 100%;
@@ -10,13 +16,86 @@
         padding-left: 1rem;
         background-color: $lightgrey;
         border: none;
-        position: relative;
-        &::after {
-            content: url(../assets/images/search.png);
-            width: 2rem;
-            height: 2rem;
-            position: absolute;
-            background: url(./assets/images/search.png);
+    }
+
+    img {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+
+    .search-recipe__filters {
+        display: flex;
+        width: 100%;
+        margin-top: 1rem;
+
+        &--ingredients {
+            background-color: $blue;
+            color: $white;
+            border-radius: 5px;
+            margin-right: 1rem;
+            width: 170px;
+            input {
+                background-color: $blue;
+            }
+        }
+        &--appliance {
+            background-color: $green;
+            color: $white;
+            border-radius: 5px;
+            margin-right: 1rem;
+            input {
+                background-color: $green;
+            }
+        }
+        &--ustensils {
+            background-color: $orange;
+            color: $white;
+            border-radius: 5px;
+            input {
+                background-color: $orange;
+            }
+        }
+
+        .top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 22px;
+            color: $white;
+            font-weight: 700;
+
+            input {
+                width: 100px;
+                border: none;
+                color: $white;
+                font-weight: 700;
+                outline: none;
+            }
+            input::placeholder {
+                color: $white;
+            }
+
+            &-right {
+                i {
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        .bottom {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll;
+            height: 0px;
+            max-height: 0px;
+            padding: 22px;
+            display: none;
+
+            li {
+                line-height: 1.25rem;
+            }
         }
     }
 }

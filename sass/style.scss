@@ -1,8 +1,11 @@
 @import './utils/variable';
 @import './pages/home/header';
 @import './pages/home/filter';
-@import './pages/home/card';
+@import './pages/home/recipe-card-container';
 
 body {
     margin: 0 5%;
+}
+* {
+    font-family: 'Lato', sans-serif;
 }
