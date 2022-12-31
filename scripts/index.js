@@ -22,6 +22,23 @@ const displayData = () => {
 
 const eventListener = () => {
 
+    searchBar.addEventListener('input', () => {
+        if (searchBar.value.length > 2) {
+            sortArray(newRecipes);
+            recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
+        } else if (searchBar.value.length === 2) {
+            recipeCardContainer.innerHTML = recipeCard(newRecipes);
+            ingredientsList.innerHTML = displayIngredients(newRecipes);
+            document.querySelectorAll('.ingredient').forEach((ingredient) => {
+                ingredient.addEventListener('mousedown', (e) => {
+                    createTag(e.target.innerHTML, '#3282f7',"ingredient");
+                    e.target.remove();
+                });
+            });
+            
+        }
+    });
+
 
     filterIngredientsTop.addEventListener('click', () => {
         filterIngredients.focus();
@@ -83,7 +100,10 @@ const eventListener = () => {
         tag.appendChild(deleteTag);
 
         deleteTag.addEventListener('click', (e) => {
-            e.target.parentNode.remove();
+             e.target.parentNode.remove();
+             sortArray(newRecipes);
+             recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
+            
         });
 
         if (searchBar.value.length < 3) {
@@ -100,42 +120,18 @@ const eventListener = () => {
         recipeCardContainer.innerHTML = recipeCard(testArray);
 
         } else {
-            console.log(mainSearchRecipes);
-            mainSearchRecipes.forEach((newRecipe) => {
-                newRecipe.ingredients.forEach((ingredient) => {
-                    if (ingredient.ingredient === value) {
-                   testArray.push(newRecipe);
-                    }
-                });
-    
-            });
+            console.log("here");
+            sortArray(newRecipes)
             
-        recipeCardContainer.innerHTML = recipeCard(testArray);
+        recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
         }
      
 
         // FILTER TAG E
 
-     
     };
-    searchBar.addEventListener('input', () => {
-        if (searchBar.value.length > 2) {
-            sortArray(newRecipes, 'search-bar');
-            recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
-        } else if (searchBar.value.length === 2) {
-            recipeCardContainer.innerHTML = recipeCard(newRecipes);
-            ingredientsList.innerHTML = displayIngredients(newRecipes);
-            document.querySelectorAll('.ingredient').forEach((ingredient) => {
-                ingredient.addEventListener('mousedown', (e) => {
-                    createTag(e.target.innerHTML, '#3282f7',"ingredient");
-                    e.target.remove();
-                });
-            });
-            
-        }
-    });
+  
 
-   
 };
 
 const init = () => {

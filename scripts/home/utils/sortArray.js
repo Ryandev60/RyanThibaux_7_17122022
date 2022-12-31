@@ -4,8 +4,7 @@ export let mainSearchRecipesAppliances = [];
 export let mainSearchRecipesUstensils = [];
 export let arrayOfSearchIngredients = [];
 
-const sortArray = (array, filter) => {
-    if (filter === 'search-bar') {
+const sortArray = (array) => {
         mainSearchRecipes = [];
         mainSearchRecipesIngredients = [];
         mainSearchRecipesAppliances = [];
@@ -34,6 +33,29 @@ const sortArray = (array, filter) => {
             });
         });
 
+    // Filter with tag
+
+
+    if (document.querySelectorAll('.tag').length !== 0) {
+    let newArray = [];
+
+        document.querySelectorAll('.tag').forEach((tag) => {
+            console.log(tag.innerText);
+            console.log(tag.dataset.type);
+            mainSearchRecipes.forEach((recipe) => {
+                if (tag.dataset.type === 'ingredient') {
+                    recipe.ingredients.forEach((ingredient) => {
+                        if (ingredient.ingredient === tag.innerText) {
+                            newArray.push(recipe);
+                        }
+                    });
+                }
+            });
+        });
+
+        mainSearchRecipes = newArray;
+    }
+
         mainSearchRecipes.forEach((recipe) => {
             // Array of ingredients in mainSearcheRecipes
 
@@ -56,16 +78,9 @@ const sortArray = (array, filter) => {
                     mainSearchRecipesUstensils.push(ustensils);
                 }
             });
-        });   
-    }
-
-    document.querySelectorAll('.tag').forEach((tag) => {
-            console.log(tag.innerText);
-            console.log(tag.dataset.type);
-            if (tag.dataset.type === "ingredient") {
-                console.log("true");
-            }
-    })
+        });
+    
+  
 };
 
 export default sortArray;
