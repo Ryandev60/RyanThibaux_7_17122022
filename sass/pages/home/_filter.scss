@@ -24,17 +24,38 @@
         top: 20px;
     }
 
+    #tagContainer {
+        color: $white;
+        width: 100%;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        .tag {
+            padding: 10px 20px;
+            border-radius: 5px;
+            width: fit-content;
+            margin: 0 0.5rem 0.5rem 0;
+
+            i {
+                margin-left: 1rem;
+                cursor: pointer;
+            }
+        }
+    }
+
     .search-recipe__filters {
         display: flex;
         width: 100%;
-        margin-top: 1rem;
+
 
         &--ingredients {
             background-color: $blue;
             color: $white;
             border-radius: 5px;
             margin-right: 1rem;
-            width: 170px;
+
             input {
                 background-color: $blue;
             }
@@ -44,6 +65,8 @@
             color: $white;
             border-radius: 5px;
             margin-right: 1rem;
+            height: min-content;
+
             input {
                 background-color: $green;
             }
@@ -52,6 +75,8 @@
             background-color: $orange;
             color: $white;
             border-radius: 5px;
+        height: min-content;
+
             input {
                 background-color: $orange;
             }
@@ -59,26 +84,35 @@
 
         .top {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             padding: 22px;
             color: $white;
             font-weight: 700;
+            cursor: pointer;
+            &-left {
+                width: 100%;
 
-            input {
-                width: 100px;
-                border: none;
-                color: $white;
-                font-weight: 700;
-                outline: none;
-            }
-            input::placeholder {
-                color: $white;
+                input {
+                    border: none;
+                    color: $white;
+                    font-weight: 700;
+                    outline: none;
+                    width: 100%;
+                }
+                input::placeholder {
+                    color: $white;
+                }
             }
 
+
+           
+           
             &-right {
                 i {
                     font-size: 1rem;
+                    transform: rotate(0deg);
+                    transition: transform 0.5s;
                 }
             }
         }
@@ -87,14 +121,24 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
-            overflow-y: scroll;
-            height: 0px;
-            max-height: 0px;
+            overflow-y: hidden;
             padding: 22px;
             display: none;
-
+            max-height: 285px;
+            max-width: 667px;
+            flex-wrap: wrap;
+            overflow-x: hidden;
+            justify-content: space-between;
             li {
                 line-height: 1.25rem;
+                padding: 5px;
+                border-radius: 10px;
+                cursor: pointer;
+                width: 31%;
+                min-width: fit-content;
+                &:hover {
+                    background-color: #ffffff3d;
+                }
             }
         }
     }

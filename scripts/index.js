@@ -1,37 +1,145 @@
-import getIngredients from './home/components/getIngredients.js';
-import getAppliance from './home/components/getAppliance.js';
-import getUstensils from './home/components/getUstensils.js';
+import displayIngredients from './home/utils/displayIngredients.js';
+import getAppliance from './home/utils/getAppliance.js';
+import getUstensils from './home/utils/getUstensils.js';
 import recipeCard from './home/components/recipeCard.js';
-import sortArray, { arrayOfSearchIngredients } from './home/utils/sortArray.js';
-import { arrayOfSearchRecipe } from './home/utils/sortArray.js';
+import sortArray, {
+    arrayOfSearchIngredients,
+    mainSearchRecipes,
+    mainSearchRecipesIngredients,
+    mainSearchRecipesAppliances,
+    mainSearchRecipesUstensils,
+} from './home/utils/sortArray.js';
+
+let newRecipes = recipes;
 
 const displayData = () => {
-    getIngredients();
     getAppliance();
     getUstensils();
-    recipeCardContainer.innerHTML = recipeCard(recipes);
-    ingredientsList.innerHTML = getIngredients();
+    recipeCardContainer.innerHTML = recipeCard(newRecipes);
+    ingredientsList.innerHTML = displayIngredients(newRecipes);
+    
+};
 
-    searchBar.addEventListener('input', () => {
-        if (searchBar.value.length > 2) {
-            sortArray(recipes, 'search-bar');
-            recipeCardContainer.innerHTML = recipeCard(arrayOfSearchRecipe);
+const eventListener = () => {
+
+
+    filterIngredientsTop.addEventListener('click', () => {
+        filterIngredients.focus();
+        if (searchBar.value.length < 3) {
+            filterIngredients.placeholder = 'Rechercher un ingrédient';
+            ingredientsList.style.display = 'flex';
+            chevronIngredients.style.transform = 'rotate(180deg)';
+        } else {
+            filterIngredients.placeholder = 'Rechercher un ingrédients';
+            ingredientsList.style.display = 'grid';
+            chevronIngredients.style.transform = 'rotate(180deg)';
+            ingredientsList.innerHTML = displayIngredients(mainSearchRecipesIngredients);
+            document.querySelectorAll('.ingredient').forEach((ingredient) => {
+                ingredient.addEventListener('mousedown', (e) => {
+                    createTag(e.target.innerHTML, '#3282f7', "ingredient");
+                    e.target.remove();
+                });
+            });
         }
-        else if (searchBar.value.length === 2){
-             recipeCardContainer.innerHTML = recipeCard(recipes);
-        }
+    });
+
+    filterIngredients.addEventListener('focusout', () => {
+        filterIngredients.placeholder = 'Ingrédients';
+
+        ingredientsList.style.display = 'none';
+        chevronIngredients.style.transform = 'rotate(0deg)';
+        filterIngredients.value = '';
     });
 
     filterIngredients.addEventListener('input', () => {
-        if (searchBar.value.length > 2) {
-            sortArray(arrayOfSearchRecipe, 'ingredients');
-            recipeCardContainer.innerHTML = recipeCard(arrayOfSearchIngredients);
-        }
+        document.querySelectorAll('.ingredient').forEach((ingredient) => {
+            if (!ingredient.innerHTML.toLowerCase().includes(filterIngredients.value.toLowerCase())) {
+                ingredient.style.display = 'none';
+            } else {
+                ingredient.style.display = 'block';
+            }
+        });
+    });
+
+    document.querySelectorAll('.ingredient').forEach((ingredient) => {
+        ingredient.addEventListener('mousedown', (e) => {
+            createTag(e.target.innerHTML, '#3282f7',"ingredient");
+            e.target.remove();
+        });
+    });
+    // FILTER TAG S
+    let testArray = []
+    const createTag = (value, color, type) => {
+        const tag = document.createElement('li');
+        tag.innerHTML = value;
+        tag.classList.add('tag');
+        tag.dataset.type = type;
+        tag.style.backgroundColor = color;
+        tagContainer.appendChild(tag);
+
+        const deleteTag = document.createElement('i');
+        deleteTag.classList.add('fa-regular');
+        deleteTag.classList.add('fa-circle-xmark');
+        tag.appendChild(deleteTag);
+
+        deleteTag.addEventListener('click', (e) => {
+            e.target.parentNode.remove();
+        });
+
         if (searchBar.value.length < 3) {
-            sortArray(recipes, 'ingredients');
-            recipeCardContainer.innerHTML = recipeCard(arrayOfSearchIngredients);
+            newRecipes.forEach((newRecipe) => {
+                newRecipe.ingredients.forEach((ingredient) => {
+                    if (ingredient.ingredient === value) {
+                        console.log(ingredient.ingredient);
+                   testArray.push(newRecipe);
+    
+                    }
+                });
+    
+            });
+        recipeCardContainer.innerHTML = recipeCard(testArray);
+
+        } else {
+            console.log(mainSearchRecipes);
+            mainSearchRecipes.forEach((newRecipe) => {
+                newRecipe.ingredients.forEach((ingredient) => {
+                    if (ingredient.ingredient === value) {
+                   testArray.push(newRecipe);
+                    }
+                });
+    
+            });
+            
+        recipeCardContainer.innerHTML = recipeCard(testArray);
+        }
+     
+
+        // FILTER TAG E
+
+     
+    };
+    searchBar.addEventListener('input', () => {
+        if (searchBar.value.length > 2) {
+            sortArray(newRecipes, 'search-bar');
+            recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
+        } else if (searchBar.value.length === 2) {
+            recipeCardContainer.innerHTML = recipeCard(newRecipes);
+            ingredientsList.innerHTML = displayIngredients(newRecipes);
+            document.querySelectorAll('.ingredient').forEach((ingredient) => {
+                ingredient.addEventListener('mousedown', (e) => {
+                    createTag(e.target.innerHTML, '#3282f7',"ingredient");
+                    e.target.remove();
+                });
+            });
+            
         }
     });
+
+   
 };
 
-displayData();
+const init = () => {
+    displayData();
+    eventListener();
+};
+init();

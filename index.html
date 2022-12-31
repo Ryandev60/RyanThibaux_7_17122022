@@ -4,6 +4,7 @@
 		<meta charset="UTF-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="./css/style.min.css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 		<link rel="icon" href="./assets/images/icon.png"/>
@@ -18,15 +19,16 @@
 				<label for="searchBar">Barre de recherche</label>
 				<input id="searchBar" class="searchbar" type="search" placeholder="Rechercher une recette"/>
 				<img src="./assets/images/search.png" alt=""/>
+				<ul id="tagContainer" class="tag-container"></ul>
 				<div class="search-recipe__filters">
 					<div class="search-recipe__filters--ingredients">
-						<div class="top">
+						<div id="filterIngredientsTop" class="top">
 							<div class="top-left">
 								<label for="filterIngredients">Filtrer par ingrédients</label>
 								<input type="search" id="filterIngredients" placeholder="Ingrédients"/>
 							</div>
 							<div class="top-right">
-								<i class="fa-solid fa-chevron-down"></i>
+								<i id="chevronIngredients" class="fa-solid fa-chevron-down"></i>
 							</div>
 						</div>
 						<ul class="bottom" id="ingredientsList"></ul>
