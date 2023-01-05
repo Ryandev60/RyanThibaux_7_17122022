@@ -60,7 +60,7 @@ const eventListener = () => {
         }
     });
 
-    filterIngredients.addEventListener('focusout', () => {
+    filterIngredients.addEventListener('focusout', () => {b
         filterIngredients.placeholder = 'Ingrédients';
 
         ingredientsList.style.display = 'none';
@@ -106,25 +106,10 @@ const eventListener = () => {
             
         });
 
-        if (searchBar.value.length < 3) {
-            newRecipes.forEach((newRecipe) => {
-                newRecipe.ingredients.forEach((ingredient) => {
-                    if (ingredient.ingredient === value) {
-                        console.log(ingredient.ingredient);
-                   testArray.push(newRecipe);
-    
-                    }
-                });
-    
-            });
-        recipeCardContainer.innerHTML = recipeCard(testArray);
-
-        } else {
-            console.log("here");
-            sortArray(newRecipes)
-            
+        console.log("here");
+        sortArray(newRecipes)
         recipeCardContainer.innerHTML = recipeCard(mainSearchRecipes);
-        }
+
      
 
         // FILTER TAG E
