@@ -1,6 +1,7 @@
-export let arrayOfIngredients = [];
+const displayIngredients = (array) => {
+    console.log(array);
+    let arrayOfIngredients = [];
 
-const getIngredients = (array) => {
     if (array === recipes) {
         array.forEach((recipe) => {
             recipe.ingredients.forEach((ingredientsPerRecipe) => {
@@ -22,4 +23,4 @@ const getIngredients = (array) => {
         .join('');
 };
 
-export default getIngredients;
+export default displayIngredients;

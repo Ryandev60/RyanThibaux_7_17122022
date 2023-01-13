@@ -10,48 +10,57 @@ const sortArray = (array) => {
     mainSearchRecipesAppliances = [];
     mainSearchRecipesUstensils = [];
 
-
-    array.forEach((recipe) => {
-        if (
-            recipe.name.toLowerCase().includes(searchBar.value.toLowerCase()) &&
-            mainSearchRecipes.indexOf(recipe) === -1
-        ) {
-            mainSearchRecipes.push(recipe);
-        }
-        if (
-            recipe.description.toLowerCase().includes(searchBar.value.toLowerCase()) &&
-            mainSearchRecipes.indexOf(recipe) === -1
-        ) {
-            mainSearchRecipes.push(recipe);
-        }
-        recipe.ingredients.forEach((ingredient) => {
+    if (searchBar.value.length >= 3) {
+        array.forEach((recipe) => {
             if (
-                ingredient.ingredient.toLowerCase().includes(searchBar.value.toLowerCase()) &&
+                recipe.name.toLowerCase().includes(searchBar.value.toLowerCase()) &&
                 mainSearchRecipes.indexOf(recipe) === -1
             ) {
                 mainSearchRecipes.push(recipe);
             }
+            if (
+                recipe.description.toLowerCase().includes(searchBar.value.toLowerCase()) &&
+                mainSearchRecipes.indexOf(recipe) === -1
+            ) {
+                mainSearchRecipes.push(recipe);
+            }
+            recipe.ingredients.forEach((ingredient) => {
+                if (
+                    ingredient.ingredient.toLowerCase().includes(searchBar.value.toLowerCase()) &&
+                    mainSearchRecipes.indexOf(recipe) === -1
+                ) {
+                    mainSearchRecipes.push(recipe);
+                }
+            });
         });
-    });
+    } else {
+        mainSearchRecipes = recipes;
+    }
 
     // Filter with tag
 
     if (document.querySelectorAll('.tag').length !== 0) {
-        let newArray = [];
-
         document.querySelectorAll('.tag').forEach((tag) => {
+            let filteredArray = [];
             mainSearchRecipes.forEach((recipe) => {
-                if (tag.dataset.type === 'ingredient' && newArray.indexOf(recipe) === -1) {
+                // Ingredients
+                if (tag.dataset.type === 'ingredient' && filteredArray.indexOf(recipe) === -1) {
                     recipe.ingredients.forEach((ingredient) => {
                         if (ingredient.ingredient === tag.innerText) {
-                            newArray.push(recipe);
+                            filteredArray.push(recipe);
                         }
                     });
                 }
-            });
-        });
 
-        mainSearchRecipes = newArray;
+                // Appliances
+                if (tag.dataset.type === 'appliance' && filteredArray.indexOf(recipe) === -1) {
+                    if (recipe.appliance === tag.innerText) {
+                        filteredArray.push(recipe);
+                    }
+                }
+            });
+            mainSearchRecipes = filteredArray;
+        });
     }
 
     mainSearchRecipes.forEach((recipe) => {
