@@ -1,40 +1,39 @@
-export let mainSearchRecipes = [];
-export let mainSearchRecipesIngredients = [];
-export let mainSearchRecipesAppliances = [];
-export let mainSearchRecipesUstensils = [];
-export let arrayOfSearchIngredients = [];
+export let filteredRecipes = [];
+export let filteredIngredients = [];
+export let filteredAppliances = [];
+export let filteredUstensils = [];
 
 const sortArray = (array) => {
-    mainSearchRecipes = [];
-    mainSearchRecipesIngredients = [];
-    mainSearchRecipesAppliances = [];
-    mainSearchRecipesUstensils = [];
+    filteredRecipes = [];
+    filteredIngredients = [];
+    filteredAppliances = [];
+    filteredUstensils = [];
 
     if (searchBar.value.length >= 3) {
         array.forEach((recipe) => {
             if (
                 recipe.name.toLowerCase().includes(searchBar.value.toLowerCase()) &&
-                mainSearchRecipes.indexOf(recipe) === -1
+                filteredRecipes.indexOf(recipe) === -1
             ) {
-                mainSearchRecipes.push(recipe);
+                filteredRecipes.push(recipe);
             }
             if (
                 recipe.description.toLowerCase().includes(searchBar.value.toLowerCase()) &&
-                mainSearchRecipes.indexOf(recipe) === -1
+                filteredRecipes.indexOf(recipe) === -1
             ) {
-                mainSearchRecipes.push(recipe);
+                filteredRecipes.push(recipe);
             }
             recipe.ingredients.forEach((ingredient) => {
                 if (
                     ingredient.ingredient.toLowerCase().includes(searchBar.value.toLowerCase()) &&
-                    mainSearchRecipes.indexOf(recipe) === -1
+                    filteredRecipes.indexOf(recipe) === -1
                 ) {
-                    mainSearchRecipes.push(recipe);
+                    filteredRecipes.push(recipe);
                 }
             });
         });
     } else {
-        mainSearchRecipes = recipes;
+        filteredRecipes = recipes;
     }
 
     // Filter with tag
@@ -42,7 +41,7 @@ const sortArray = (array) => {
     if (document.querySelectorAll('.tag').length !== 0) {
         document.querySelectorAll('.tag').forEach((tag) => {
             let filteredArray = [];
-            mainSearchRecipes.forEach((recipe) => {
+            filteredRecipes.forEach((recipe) => {
                 // Ingredients
                 if (tag.dataset.type === 'ingredient' && filteredArray.indexOf(recipe) === -1) {
                     recipe.ingredients.forEach((ingredient) => {
@@ -58,31 +57,41 @@ const sortArray = (array) => {
                         filteredArray.push(recipe);
                     }
                 }
+
+                // Ustensils
+                if (tag.dataset.type === 'ustensil' && filteredArray.indexOf(recipe) === -1) {
+                    recipe.ustensils.forEach((ustensil) => {
+                        if (ustensil === tag.innerText) {
+                            filteredArray.push(recipe);
+                        }
+                    });
+                }
             });
-            mainSearchRecipes = filteredArray;
+
+            filteredRecipes = filteredArray;
         });
     }
 
-    mainSearchRecipes.forEach((recipe) => {
-        // Array of ingredients in mainSearcheRecipes
+    filteredRecipes.forEach((recipe) => {
+        // Array of ingredients in filteredRecipes
 
         recipe.ingredients.forEach((ingredient) => {
-            if (mainSearchRecipesIngredients.indexOf(ingredient.ingredient) === -1) {
-                mainSearchRecipesIngredients.push(ingredient.ingredient);
+            if (filteredIngredients.indexOf(ingredient.ingredient) === -1) {
+                filteredIngredients.push(ingredient.ingredient);
             }
         });
 
-        // Array of appliances in mainSearcheRecipes
+        // Array of appliances in filteredRecipes
 
-        if (mainSearchRecipesAppliances.indexOf(recipe.appliance) === -1) {
-            mainSearchRecipesAppliances.push(recipe.appliance);
+        if (filteredAppliances.indexOf(recipe.appliance) === -1) {
+            filteredAppliances.push(recipe.appliance);
         }
 
-        // Array of ustensils in mainSearcheRecipes
+        // Array of ustensils in filteredRecipes
 
         recipe.ustensils.forEach((ustensils) => {
-            if (mainSearchRecipesUstensils.indexOf(ustensils) === -1) {
-                mainSearchRecipesUstensils.push(ustensils);
+            if (filteredUstensils.indexOf(ustensils) === -1) {
+                filteredUstensils.push(ustensils);
             }
         });
     });
