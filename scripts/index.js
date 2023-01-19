@@ -1,3 +1,4 @@
+// Import
 import listElement from './home/components/listElement.js';
 import recipeCard from './home/components/recipeCard.js';
 import sortArray, {
@@ -6,15 +7,18 @@ import sortArray, {
     filteredAppliances,
     filteredUstensils,
 } from './home/utils/sortArray.js';
+// Global variables
 let lessThan3 = true;
 
+// Add event listener searchbar
 searchBar.addEventListener('input', () => {
+    // Searchbar start filter when 3 characters are write else if we reset
     if (searchBar.value.length >= 3) {
         sortArray(recipes);
         recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
         displayFilterList();
-        lessThan3 = false
-    } else if (searchBar.value.length < 3 && lessThan3 === false){
+        lessThan3 = false;
+    } else if (searchBar.value.length < 3 && lessThan3 === false) {
         sortArray(recipes);
         recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
         displayFilterList();
@@ -22,9 +26,11 @@ searchBar.addEventListener('input', () => {
     }
 });
 
+// Function to display filter lists
 const displayFilterList = () => {
     //Ingredients
     ingredientsList.innerHTML = listElement(filteredIngredients, 'ingredient');
+    // Add event listener on each ingredients
     document.querySelectorAll('.ingredient').forEach((ingredient) => {
         ingredient.addEventListener('mousedown', (e) => {
             createTag(e.target.innerHTML, '#3282f7', 'ingredient');
@@ -34,6 +40,7 @@ const displayFilterList = () => {
 
     // Appliances
     appliancesList.innerHTML = listElement(filteredAppliances, 'appliance');
+    // Add event listener on each appliances
     document.querySelectorAll('.appliance').forEach((appliance) => {
         appliance.addEventListener('mousedown', (e) => {
             createTag(e.target.innerHTML, '#68d9a4', 'appliance');
@@ -43,6 +50,7 @@ const displayFilterList = () => {
 
     // Ustensils
     ustensilsList.innerHTML = listElement(filteredUstensils, 'ustensil');
+    // Add event listener on each ustensils
     document.querySelectorAll('.ustensil').forEach((ustensil) => {
         ustensil.addEventListener('mousedown', (e) => {
             createTag(e.target.innerHTML, '#ed6454', 'ustensil');
@@ -51,9 +59,9 @@ const displayFilterList = () => {
     });
 };
 
+//Function for add different event listener on different filters
 const filterByTag = () => {
     // Ingredients
-
     filterIngredientsTop.addEventListener('click', () => {
         filterIngredients.focus();
         filterIngredients.placeholder = 'Rechercher un ingrédient';
@@ -110,10 +118,10 @@ const filterByTag = () => {
 
     filterUstensilsTop.addEventListener('click', () => {
         filterUstensils.focus();
-            filterUstensils.placeholder = 'Rechercher un ustensile';
-            ustensilsList.style.display = 'flex';
-            chevronUstensils.style.transform = 'rotate(180deg)';
-            displayFilterList();
+        filterUstensils.placeholder = 'Rechercher un ustensile';
+        ustensilsList.style.display = 'flex';
+        chevronUstensils.style.transform = 'rotate(180deg)';
+        displayFilterList();
     });
 
     filterUstensilsTop.addEventListener('focusout', () => {
@@ -134,7 +142,10 @@ const filterByTag = () => {
     });
 };
 
+// Function for create tag
+
 const createTag = (value, color, type) => {
+    // Create tag
     const tag = document.createElement('li');
     tag.innerHTML = value;
     tag.classList.add('tag');
@@ -142,21 +153,25 @@ const createTag = (value, color, type) => {
     tag.style.backgroundColor = color;
     tagContainer.appendChild(tag);
 
+    // Create xmark icon for delete tag
     const deleteTag = document.createElement('i');
     deleteTag.classList.add('fa-regular');
     deleteTag.classList.add('fa-circle-xmark');
     tag.appendChild(deleteTag);
 
+    // Event listener for delete tag
     deleteTag.addEventListener('click', (e) => {
         e.target.parentNode.remove();
         sortArray(recipes);
         recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
     });
 
+    // Filter array on display the result
     sortArray(recipes);
     recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
 };
 
+// Function for initialize the project
 const init = () => {
     filterByTag();
     recipeCardContainer.innerHTML = recipeCard(recipes);
