@@ -1,4 +1,4 @@
-const displayListElement = (array, className) => {
+const listElement = (array, className) => {
     
     return array
         .map((e) => {
@@ -9,5 +9,5 @@ const displayListElement = (array, className) => {
         .join('');
 };
 
-export default displayListElement;
+export default listElement;
 

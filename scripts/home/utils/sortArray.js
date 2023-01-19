@@ -2,6 +2,7 @@ export let filteredRecipes = [];
 export let filteredIngredients = [];
 export let filteredAppliances = [];
 export let filteredUstensils = [];
+let arrayOfTag = [];
 
 const sortArray = (array) => {
     filteredRecipes = [];
