@@ -18,6 +18,15 @@ searchBar.addEventListener('input', () => {
         recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
         displayFilterList();
         lessThan3 = false;
+        if (filteredRecipes.length === 0) {
+            console.log('test');
+            recipeCardContainer.innerHTML = `
+            <div class="not-found">
+            <img src="./assets/images/icon-grey.jpg">
+                 <p>Aucune recette ne correspond à votre recherche !</p>
+            </div>
+`;
+        }
     } else if (searchBar.value.length < 3 && lessThan3 === false) {
         sortArray(recipes);
         recipeCardContainer.innerHTML = recipeCard(filteredRecipes);
