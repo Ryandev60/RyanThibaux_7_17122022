@@ -67,4 +67,24 @@
             }
         }
     }
+    .not-found {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        grid-column-start: 2;
+        margin-top: 1rem;
+
+        img {
+            width: 50px;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: $grey-hat;
+            font-size: 1.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+    }
 }
