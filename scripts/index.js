@@ -98,9 +98,9 @@ const createTag = (value, color, type) => {
 
 // Function for initialize the project
 const init = () => {
-    filterByTag(filterIngredientsTop, filterIngredients, 'ingrédient', ingredientsList, chevronIngredients, '.ingredient', displayFilterList);
-    filterByTag(filterAppliancesTop, filterAppliances, 'appareils', appliancesList, chevronAppliances, '.appliance', displayFilterList);
-    filterByTag(filterUstensilsTop, filterUstensils, 'ustensiles', ustensilsList, chevronUstensils, '.ustensil', displayFilterList);
+    filterByTag(filterIngredientsTop, filterIngredients, 'ingrédient', ingredientsList, chevronIngredients, '.ingredient', displayFilterList,"Ingrédients");
+    filterByTag(filterAppliancesTop, filterAppliances, 'appareils', appliancesList, chevronAppliances, '.appliance', displayFilterList, "Appareils");
+    filterByTag(filterUstensilsTop, filterUstensils, 'ustensiles', ustensilsList, chevronUstensils, '.ustensil', displayFilterList, "Ustensiles");
     recipeCardContainer.innerHTML = recipeCard(recipes);
     sortArray(recipes);
     displayFilterList();
