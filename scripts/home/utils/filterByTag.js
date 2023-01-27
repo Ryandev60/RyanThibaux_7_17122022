@@ -1,19 +1,16 @@
 //Function for add different event listener on different filters
 
-const filterByTag = (filterTop, filter, placeholder, list, chevron, selector,displayFilterList,mainPlaceholder) => {
-
+const filterByTag = (filterTop, filter, placeholder, list, chevron, selector, displayFilterList, mainPlaceholder) => {
     const checkIfTagExist = () => {
         document.querySelectorAll('.tag').forEach((tag) => {
             document.querySelectorAll(selector).forEach((type) => {
-                // console.log(tag.innerText);
-                // console.log(ingredient.innerText);
                 if (tag.innerText === type.innerText) {
-                    type.style.display = "none"
-                    console.log("test");
+                    type.style.display = 'none';
+                    console.log('test');
                 }
-            })
-        })
-    }
+            });
+        });
+    };
     // Ingredients
     filterTop.addEventListener('click', () => {
         filter.focus();
@@ -22,7 +19,7 @@ const filterByTag = (filterTop, filter, placeholder, list, chevron, selector,dis
         list.style.display = 'flex';
         chevron.style.transform = 'rotate(180deg)';
         displayFilterList();
-        checkIfTagExist(selector)
+        checkIfTagExist(selector);
     });
 
     filter.addEventListener('focusout', () => {
@@ -40,6 +37,7 @@ const filterByTag = (filterTop, filter, placeholder, list, chevron, selector,dis
             } else {
                 selector.style.display = 'block';
             }
+            checkIfTagExist(selector);
         });
     });
 };
