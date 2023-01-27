@@ -10,7 +10,7 @@ const sortArray = (array) => {
     filteredUstensils = [];
 
     if (searchBar.value.length >= 3) {
-        array.forEach((recipe) => {
+        for (const recipe of array) {
             if (
                 recipe.name.toLowerCase().includes(searchBar.value.toLowerCase()) &&
                 filteredRecipes.indexOf(recipe) === -1
@@ -23,16 +23,15 @@ const sortArray = (array) => {
             ) {
                 filteredRecipes.push(recipe);
             }
-            recipe.ingredients.forEach((ingredient) => {
+            for (const ingredient of recipe.ingredients) {
                 if (
                     ingredient.ingredient.toLowerCase().includes(searchBar.value.toLowerCase()) &&
                     filteredRecipes.indexOf(recipe) === -1
                 ) {
                     filteredRecipes.push(recipe);
                 }
-            });
-        });
-
+            }
+        }
     } else {
         filteredRecipes = recipes;
     }
@@ -96,7 +95,6 @@ const sortArray = (array) => {
             }
         });
     });
-
 };
 
 export default sortArray;
